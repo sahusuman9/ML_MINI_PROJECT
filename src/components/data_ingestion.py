@@ -42,7 +42,7 @@ class DataIngestion:
         logging.info("Entered the data ingestion method or component")
         try:
             # Reading dataset
-            df = pd.read_csv("data\stud.csv")  # Reading data from CSV file
+            df = pd.read_csv("data/stud.csv")  # Reading data from CSV file
             logging.info('Read the dataset as dataframe')
             
             # Creating directory for storing datasets

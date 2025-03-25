@@ -26,8 +26,8 @@ class PredictPipeline:
         """
         try:
             # Paths to the trained model and preprocessor
-            model_path = 'artifacts\model.pkl'
-            preprocessor_path = 'artifacts\preprocessor.pkl'
+            model_path = 'artifacts/model.pkl'
+            preprocessor_path = 'artifacts/preprocessor.pkl'
             
             # Loading trained model and preprocessor
             model = load_object(file_path=model_path)
