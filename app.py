@@ -4,6 +4,12 @@ import pandas as pd  # Pandas for data handling
 
 from sklearn.preprocessing import StandardScaler  # StandardScaler for data normalization
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline  # Importing custom prediction pipeline
+import logging
+from src.exception import CustomException  # Custom exception handling class
+from src.components.data_ingestion import DataIngestion  # Importing data ingestion module
+from src.components.data_transformation import DataTransformation  # Importing data transformation module
+from src.components.modal_trainer import ModelTrainer  # Importing model trainer module
+import sys
 
 # Initializing Flask application
 application = Flask(__name__)
@@ -19,6 +25,27 @@ def index():
 
 @app.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
+    logging.info("The execution has started")  # Log execution start
+
+    try:
+        # Initialize data ingestion process
+        data_ingestion = DataIngestion()
+        train_data_path,test_data_path = data_ingestion.initiate_data_ingestion()  # Start data ingestion pipeline
+        
+        #data_transformation_config = DataTransformationConfig()  # Initialize data transformation configuration
+        data_transformation = DataTransformation()  # Initialize data transformation class
+        train_arr,test_arr,_ = data_transformation.initiate_data_transformation(train_data_path,test_data_path)
+        
+        ##Model Trainer
+        model_trainer = ModelTrainer()  # Initialize model trainer class
+        print(model_trainer.initiate_model_trainer(train_arr,test_arr))  # Start model training process
+        
+        model_trainer.best_model_name
+        model_trainer.r2_square
+        
+    except Exception as e:
+        logging.info("Custom Exception")  # Log custom exception occurrence
+        raise CustomException(e, sys)  # Raise custom exception for debugging
     """
     Handles user input for predictions. 
     Displays the form for GET requests and processes input data for POST requests.
@@ -46,9 +73,10 @@ def predict_datapoint():
         
         # Making predictions using the trained model
         results = predict_pipeline.predict(pred_df)
+        logging.info("Prediction result is out")
         
         # Rendering the result on the home.html page
-        return render_template("home.html", results=results[0])
+        return render_template("home.html", results=results[0],r2_score=model_trainer.r2_square,best_model=model_trainer.best_model_name)
     
 if __name__ == "__main__":
     """

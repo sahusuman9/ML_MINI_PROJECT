@@ -115,8 +115,8 @@ class ModelTrainer:
             
             # Finding the best model based on performance score
             best_model_score = max(sorted(model_report.values()))  # Highest R-squared score
-            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]  # Model name
-            best_model = models[best_model_name]  # Selecting the best model
+            self.best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]  # Model name
+            best_model = models[self.best_model_name]  # Selecting the best model
             
             # Ensuring the best model meets the minimum performance threshold
             if best_model_score < 0.6:
@@ -134,8 +134,10 @@ class ModelTrainer:
             predicted = best_model.predict(X_test)
             
             # Calculating R-squared score for model evaluation
-            r2_square = r2_score(y_test, predicted)
-            return r2_square
+            self.r2_square = r2_score(y_test, predicted)
+            logging.info(f"R2 Score: {self.r2_square}")
+            return self.r2_square, best_model  # Returning R-squared score, model name, and score
             
         except Exception as e:
+            print("Debug: Entering the try block")
             raise CustomException(e, sys)  # Raising custom exception with detailed error information
