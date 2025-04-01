@@ -5,8 +5,8 @@ This project predicts students' math scores using machine learning. It follows a
 
 ## Project Structure
 ```
+├── artifacts/                      # Stores trained models and transformed data
 ├── data/                          # Raw dataset (stud.csv)
-├── notebooks/                     # Jupyter Notebooks for EDA and model training
 │   ├── eda.ipynb                  # Exploratory Data Analysis (EDA)
 │   ├── model_training.ipynb       # Model training and evaluation
 ├── src/                           # Source code
@@ -20,7 +20,6 @@ This project predicts students' math scores using machine learning. It follows a
 │   ├── exception.py               # Custom exception handling
 │   ├── utils.py                   # Utility functions (saving objects, evaluation, etc.)
 ├── app.py                         # Flask API for model inference
-├── artifacts/                      # Stores trained models and transformed data
 ├── README.md                       # Project documentation
 ```
 
