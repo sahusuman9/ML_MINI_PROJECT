@@ -5,7 +5,7 @@ This project predicts students' math scores using machine learning. It follows a
 
 ## Project Structure
 ```
-├── artifacts/                      # Stores trained models and transformed data
+├── artifacts/                     # Stores trained models and transformed data
 ├── data/                          # Raw dataset (stud.csv)
 │   ├── eda.ipynb                  # Exploratory Data Analysis (EDA)
 │   ├── model_training.ipynb       # Model training and evaluation
