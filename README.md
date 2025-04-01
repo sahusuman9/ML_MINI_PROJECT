@@ -1,11 +1,14 @@
 # Student Math Score Prediction
 
 ## Overview
-This project predicts students' math scores using machine learning. It follows a structured ML pipeline, including data ingestion, transformation, model training, and evaluation.
+This project predicts students' math scores using machine learning. It follows a structured ML pipeline, including exploratory data analysis (EDA), data ingestion, transformation, model training, and evaluation.
 
 ## Project Structure
 ```
 ├── data/                          # Raw dataset (stud.csv)
+├── notebooks/                     # Jupyter Notebooks for EDA and model training
+│   ├── eda.ipynb                  # Exploratory Data Analysis (EDA)
+│   ├── model_training.ipynb       # Model training and evaluation
 ├── src/                           # Source code
 │   ├── components/                # ML pipeline components
 │   │   ├── data_ingestion.py      # Handles data loading and splitting
@@ -55,20 +58,24 @@ python src/components/data_ingestion.py
 ```
 
 ### Steps in the ML Pipeline:
-1. **Data Ingestion**:
+1. **Exploratory Data Analysis (EDA)**:
+   - Conducted in `notebooks/eda.ipynb` to understand data distributions, correlations, and feature importance.
+   - Helps in identifying missing values and outliers.
+2. **Data Ingestion**:
    - Reads `stud.csv` and splits it into training and test sets.
    - Saves data in the `artifacts` folder.
-2. **Data Transformation**:
+3. **Data Transformation**:
    - Handles missing values and encodes categorical features.
    - Scales numerical features.
    - Saves the transformation pipeline (`preprocessor.pkl`).
-3. **Model Training**:
+4. **Model Training**:
+   - Implemented in `notebooks/model_training.ipynb`.
    - Trains multiple regression models (Random Forest, Decision Tree, Gradient Boosting, etc.).
    - Selects the best model based on R² score.
    - Saves the best model (`model.pkl`).
-4. **Model Evaluation**:
+5. **Model Evaluation**:
    - Evaluates model performance on test data.
-5. **Prediction Pipeline**:
+6. **Prediction Pipeline**:
    - `prediction_pipeline.py` loads the trained model and preprocessor.
    - Takes user input (reading and writing scores) and returns the predicted math score.
 
@@ -95,13 +102,11 @@ The project includes a Flask-based API (`app.py`) to serve predictions:
 - The API returns a JSON response with the predicted math score:
   ```json
   {
-      "predicted_math_score": 80.566666666
+      "predicted_math_score": 80.5666666
   }
   ```
 
 ## Model Performance
 - The model achieving the highest **R² score** is selected.
 - If no model achieves a score >0.6, an exception is raised.
-- The best performing model is Linear Regression.
-
-
+- The best performance model used is Linear Regression.
